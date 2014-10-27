@@ -2,3 +2,4 @@ name: randomhealth
 description: A sample web application
 dependencies:
   browser: any
+  firebase: any

@@ -1,16 +1,7 @@
 import 'dart:html';
+import 'package:firebase/firebase.dart';
 
 void main() {
-  querySelector("#sample_text_id")
-      ..text = "Click me!"
-      ..onClick.listen(reverseText);
-}
-
-void reverseText(MouseEvent event) {
-  var text = querySelector("#sample_text_id").text;
-  var buffer = new StringBuffer();
-  for (int i = text.length - 1; i >= 0; i--) {
-    buffer.write(text[i]);
-  }
-  querySelector("#sample_text_id").text = buffer.toString();
+  var fire = new Firebase('popping-inferno-887.firebaseio.com/store/fruit');
+  fire.onValue.listen((e) => print(e.snapshot.val()));
 }
