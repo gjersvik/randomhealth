@@ -3,3 +3,7 @@ description: A sample web application
 dependencies:
   browser: any
   firebase: any
+  paper_elements: any
+  polymer: any
+transformers:
+- polymer
