@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Randomhealth</title>
     <link rel="import" href="packages/paper_elements/paper_tabs.html">
+    <link rel="import" href="packages/core_elements/core_pages.html">
     
     <script async type="application/dart" src="randomhealth.dart"></script>
     <script async src="packages/browser/dart.js"></script>
@@ -14,15 +15,20 @@
   </head>
   <body unresolved>
     <paper-tabs>
-      <paper-tab>Test1</paper-tab>
-      <paper-tab>Test2</paper-tab>
+      <paper-tab>Recipe</paper-tab>
+      <paper-tab>Food store</paper-tab>
     </paper-tabs>
-    <h1>Frokost</h1>
-    <p id="breakfast"></p>
-    <h1>Middag</h1>
-    <p id="dinner"></p>
-    <h1>Kveldsmat</h1>
-    <p id="afternoon"></p>
+    <core-pages selected="0">
+      <div><h1>Frokost</h1>
+        <p id="breakfast"></p>
+        <h1>Middag</h1>
+        <p id="dinner"></p>
+        <h1>Kveldsmat</h1>
+        <p id="afternoon"></p>
+      </div>
+      <div>
+      </div>
+    </core-pages>
     
     <script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
   </body>
