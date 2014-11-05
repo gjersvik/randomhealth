@@ -1,10 +1,14 @@
-import 'dart:html';
+library randomhealth;
+
+import 'dart:html' hide Event;
 
 import 'package:firebase/firebase.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:paper_elements/paper_tabs.dart';
 import 'package:core_elements/core_pages.dart';
+
+part 'src/store_list.dart';
 
 void main() {
   var fire = new Firebase('popping-inferno-887.firebaseio.com/store');
@@ -32,6 +36,9 @@ void main() {
     
     querySelector('#dinner').innerHtml = toHtml(new Map.fromIterables(list,list2));
   });
+  
+  storeList(fire);
+  
   initPolymer().run((){
     PaperTabs tabs = querySelector('paper-tabs');
     CorePages pages = querySelector('core-pages');
