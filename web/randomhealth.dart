@@ -15,11 +15,11 @@ void main() {
   fire.onValue.first.then((e){
     Map data = e.snapshot.val();
     
-    var list = pick3(data['veg']);
+    var list = pick2(data['veg']);
     var map = new Map.fromIterables(list, list.map((e) => data['veg'][e]));
     querySelector('#breakfast').innerHtml = toHtml(map);
     
-    list = pick3(data['fruit']);
+    list = pick2(data['fruit']);
     map = new Map.fromIterables(list, list.map((e) => data['fruit'][e]));
     querySelector('#afternoon').innerHtml = toHtml(map);
     
@@ -50,10 +50,10 @@ void main() {
   });
 }
 
-List pick3(Map data){
+List pick2(Map data){
   var validKeys = data.keys.where((name) => data[name] > 0).toList();
   validKeys.shuffle();
-  return validKeys.take(3).toList();
+  return validKeys.take(2).toList();
 }
 
 dynamic pick1(Map data){
