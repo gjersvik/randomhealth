@@ -8,7 +8,12 @@ storeList(Firebase fire){
     elem.children = store.keys.expand((category){
       var list = [new Element.tag('h1')..text = category];
       list.addAll(store[category].keys.map((food){
-        return new Element.div()..text = food;
+        var div = new Element.div();
+        div.append(new Element.span()..text = store[category][food].toString());
+        div.appendText(food);
+        div.append(new ButtonElement()..text = '+');
+        div.append(new ButtonElement()..text = '-');
+        return div;
       }));
       return list;
     }).toList();
