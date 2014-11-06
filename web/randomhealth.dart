@@ -37,7 +37,7 @@ void main() {
     querySelector('#dinner').innerHtml = toHtml(new Map.fromIterables(list,list2));
   });
   
-  storeList(fire);
+  var store = new StoreList(fire);
   
   initPolymer().run((){
     PaperTabs tabs = querySelector('paper-tabs');
