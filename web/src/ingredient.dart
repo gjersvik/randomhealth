@@ -9,7 +9,7 @@ class Ingredient{
   
   Firebase _fire;
   
-  Ingredient(this.type, this.name, Firebase store){
+  Ingredient(this.type, this.name, Firebase store, [this.inStore = 0]){
     _fire = store.child('$type/$name');
     changes = _fire.onValue.map((Event event){
       inStore = event.snapshot.val();
