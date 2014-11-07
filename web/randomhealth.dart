@@ -17,8 +17,7 @@ part 'src/store_list.dart';
 
 void main() {
   var store = new Store('popping-inferno-887.firebaseio.com/store');
-  store.fireStore.onValue.first.then((_){
-    print(store.catergory);
+  store.onReady.then((_){
     
     var list = store.catergory['veg'].pick(2);
     querySelector('#breakfast').innerHtml = toHtml(list);

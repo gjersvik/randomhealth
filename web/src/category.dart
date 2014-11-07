@@ -5,6 +5,8 @@ class Category{
   final Map<String,Ingredient> _ingredient = {};
 
   Category( DataSnapshot snapshot): fireStore = snapshot.ref(){
+    snapshot.forEach(_add);
+    
     fireStore.onChildAdded.listen((Event e) => _add(e.snapshot));
     fireStore.onChildRemoved.listen((Event e) => _remove(e.snapshot));
     fireStore.onChildMoved.listen((Event e) => _move(e.snapshot, e.prevChild));
@@ -19,7 +21,11 @@ class Category{
     return validKeys.take(n).toList();
   }
   
-  _add(DataSnapshot data) => _ingredient[data.name] = new Ingredient(data);
+  _add(DataSnapshot data){
+    if(!_ingredient.containsKey(data.name)){
+      _ingredient[data.name] = new Ingredient(data);
+    }
+  }
   
   _remove(DataSnapshot data) => _ingredient.remove(data.name);
   
