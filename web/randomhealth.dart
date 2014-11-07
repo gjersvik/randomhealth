@@ -16,33 +16,21 @@ part 'src/store.dart';
 part 'src/store_list.dart';
 
 void main() {
-  var fire = new Firebase('popping-inferno-887.firebaseio.com/store');
-  fire.onValue.first.then((e){
-    Map data = e.snapshot.val();
+  var store = new Store('popping-inferno-887.firebaseio.com/store');
+  store.fireStore.onValue.first.then((_){
+    print(store.catergory);
     
-    var list = pick2(data['veg']);
-    var map = new Map.fromIterables(list, list.map((e) => data['veg'][e]));
-    querySelector('#breakfast').innerHtml = toHtml(map);
+    var list = store.catergory['veg'].pick(2);
+    querySelector('#breakfast').innerHtml = toHtml(list);
     
-    list = pick2(data['fruit']);
-    map = new Map.fromIterables(list, list.map((e) => data['fruit'][e]));
-    querySelector('#afternoon').innerHtml = toHtml(map);
+    list = store.catergory['fruit'].pick(2);
+    querySelector('#afternoon').innerHtml = toHtml(list);
     
-    list = [
-              pick1(data['meat']),
-              pick1(data['gravy']),
-              pick1(data['veg'])
-            ];
-    var list2 = [
-              data['meat'][list[0]],
-              data['gravy'][list[1]],
-              data['veg'][list[2]]
-            ];
-    
-    querySelector('#dinner').innerHtml = toHtml(new Map.fromIterables(list,list2));
+    list = ['meat','gravy','veg'].map((cat) => store.catergory[cat].pick(1).single).toList();
+    querySelector('#dinner').innerHtml = toHtml(list);
   });
   
-  var store = new StoreList(fire);
+  var storelist = new StoreList(store.fireStore);
   
   initPolymer().run((){
     PaperTabs tabs = querySelector('paper-tabs');
@@ -55,18 +43,6 @@ void main() {
   });
 }
 
-List pick2(Map data){
-  var validKeys = data.keys.where((name) => data[name] > 0).toList();
-  validKeys.shuffle();
-  return validKeys.take(2).toList();
-}
-
-dynamic pick1(Map data){
-  var validKeys = data.keys.where((name) => data[name] > 0).toList();
-  validKeys.shuffle();
-  return validKeys.first;
-}
-
-String toHtml(Map data){
-  return data.keys.map((n) => "$n 1 av ${data[n]}").join('<br>');
+String toHtml(List<Ingredient> ingedience){
+  return ingedience.map((i) => "${i.name} 1 av ${i.inStore}").join('<br>');
 }
