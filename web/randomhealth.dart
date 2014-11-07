@@ -1,5 +1,6 @@
 library randomhealth;
 
+import 'dart:async';
 import 'dart:html' hide Event;
 
 import 'package:firebase/firebase.dart';
@@ -8,6 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'package:paper_elements/paper_tabs.dart';
 import 'package:core_elements/core_pages.dart';
 
+part 'src/ingredient.dart';
 part 'src/store_list.dart';
 
 void main() {
