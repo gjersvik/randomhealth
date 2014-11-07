@@ -1,32 +1,31 @@
 part of randomhealth;
 
 class Ingredient{
-  final type;
-  final String name;
-  int inStore = 0;
+  Stream<Ingredient> update;
   
-  Stream<Ingredient> changes;
+  DataSnapshot _snapshot;
   
-  Firebase _fire;
-  
-  Ingredient(this.type, this.name, Firebase store, [this.inStore = 0]){
-    _fire = store.child('$type/$name');
-    changes = _fire.onValue.map((Event event){
-      inStore = event.snapshot.val();
+  Ingredient(this._snapshot){
+    update = fireStore.onValue.map((Event event){
+      _snapshot = event.snapshot;
       return this;
     }).asBroadcastStream();
-    
+        
     // Make shure that the map is runned.
-    changes.listen((_) => null);
+    update.listen((_) => null);
   }
   
+  Firebase get fireStore => _snapshot.ref();
+  String get name => _snapshot.name;
+  int get inStore => _snapshot.val();
+  
   inc(){
-    _fire.set(inStore + 1);
+    fireStore.set(inStore + 1);
   }
   
   dec(){
     if(inStore > 0){
-      _fire.set(inStore - 1);
+      fireStore.set(inStore - 1);
     }
   }
 }
