@@ -16,28 +16,25 @@ part 'src/store.dart';
 part 'src/store_list.dart';
 
 void main() {
-  var store = new Store('popping-inferno-887.firebaseio.com/store');
-  store.onReady.then((_){
-    
-    var list = store.catergory['veg'].pick(2);
-    querySelector('#breakfast').innerHtml = toHtml(list);
-    
-    list = store.catergory['fruit'].pick(2);
-    querySelector('#afternoon').innerHtml = toHtml(list);
-    
-    list = ['meat','gravy','veg'].map((cat) => store.catergory[cat].pick(1).single).toList();
-    querySelector('#dinner').innerHtml = toHtml(list);
-  });
-  
-  var storelist = new StoreList(store.fireStore);
-  
+  var onReady = new Store('popping-inferno-887.firebaseio.com/store').onReady;
   initPolymer().run((){
     PaperTabs tabs = querySelector('paper-tabs');
     CorePages pages = querySelector('core-pages');
-    print(tabs.runtimeType);
     tabs.on['core-select'].listen((CustomEvent test){
-      print(tabs.selected);
       pages.selected = tabs.selected;
+    });
+    
+    onReady.then((Store store){
+      var list = store.catergory['veg'].pick(2);
+      querySelector('#breakfast').innerHtml = toHtml(list);
+      
+      list = store.catergory['fruit'].pick(2);
+      querySelector('#afternoon').innerHtml = toHtml(list);
+      
+      list = ['meat','gravy','veg'].map((cat) => store.catergory[cat].pick(1).single).toList();
+      querySelector('#dinner').innerHtml = toHtml(list);
+      
+      var storelist = new StoreList(store);
     });
   });
 }

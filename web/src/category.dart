@@ -3,8 +3,10 @@ part of randomhealth;
 class Category{
   final Firebase fireStore;
   final Map<String,Ingredient> _ingredient = {};
+  String name;
 
   Category( DataSnapshot snapshot): fireStore = snapshot.ref(){
+    name = snapshot.name;
     snapshot.forEach(_add);
     
     fireStore.onChildAdded.listen((Event e) => _add(e.snapshot));
@@ -12,7 +14,7 @@ class Category{
     fireStore.onChildMoved.listen((Event e) => _move(e.snapshot, e.prevChild));
   }
   
-  UnmodifiableMapView<String,Category> get ingredient
+  UnmodifiableMapView<String,Ingredient> get ingredient
     => new UnmodifiableMapView(_ingredient);
   
   List<Ingredient> pick(n){
