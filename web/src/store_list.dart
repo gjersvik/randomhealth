@@ -7,10 +7,12 @@ class StoreList{
   StoreList(this._store){
     _elem = querySelector('#store');
     
-    _elem.children = _store.catergory.values.expand((category){
-      var list = [new Element.tag('h1')..text = category.name];
-      list.addAll(category.ingredient.values.map(addIngredient));
-      return list;
+    _elem.children = _store.catergory.values.map((category){
+      var cat = new Element.div();
+      cat.classes.add(category.name);
+      cat.append(new Element.tag('h1')..text = category.name);
+      cat.children.addAll(category.ingredient.values.map(addIngredient));
+      return cat;
     }).toList();
   }
   

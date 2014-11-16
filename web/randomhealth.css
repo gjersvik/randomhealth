@@ -13,3 +13,22 @@ core-pages{}
 core-pages > div{
   overflow: auto;
 }
+
+.fruit{
+  background-color: blue;
+}
+
+.gravy{
+  background-color: yellow;
+  
+}
+
+.meat{
+  background-color: red;
+  
+}
+
+.veg{
+  background-color: green;
+  
+}

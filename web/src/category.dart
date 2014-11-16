@@ -25,7 +25,7 @@ class Category{
   
   _add(DataSnapshot data){
     if(!_ingredient.containsKey(data.name)){
-      _ingredient[data.name] = new Ingredient(data);
+      _ingredient[data.name] = new Ingredient(data,this);
     }
   }
   

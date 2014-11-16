@@ -4,8 +4,9 @@ class Ingredient{
   Stream<Ingredient> update;
   
   DataSnapshot _snapshot;
+  Category _category;
   
-  Ingredient(this._snapshot){
+  Ingredient(this._snapshot, this._category){
     update = fireStore.onValue.map((Event event){
       _snapshot = event.snapshot;
       return this;
@@ -16,6 +17,7 @@ class Ingredient{
   }
   
   Firebase get fireStore => _snapshot.ref();
+  String get type => _category.name;
   String get name => _snapshot.name;
   int get inStore => _snapshot.val();
   
