@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Randomhealth</title>
+    <link rel="import" href="packages/paper_elements/paper_button.html">
     <link rel="import" href="packages/paper_elements/paper_tabs.html">
+    <link rel="import" href="packages/paper_elements/paper_shadow.html">
     <link rel="import" href="packages/core_elements/core_pages.html">
     
     <script async type="application/dart" src="randomhealth.dart"></script>
@@ -17,14 +19,37 @@
     <paper-tabs>
       <paper-tab>Recipe</paper-tab>
       <paper-tab>Food store</paper-tab>
+      <paper-shadow z="2"></paper-shadow>
     </paper-tabs>
     <core-pages selected="0" flex>
-      <div><h1>Frokost</h1>
-        <p id="breakfast"></p>
-        <h1>Middag</h1>
-        <p id="dinner"></p>
-        <h1>Kveldsmat</h1>
-        <p id="afternoon"></p>
+      <div>
+        <div id="breakfast" class="recepe">
+          <h1>Frokost</h1>
+          <div class="ingredients"></div>
+          <div class="buttons">
+            <paper-button raised>Remake</paper-button>
+            <paper-button raised>Use it</paper-button>
+          </div>
+          <paper-shadow z="1"></paper-shadow>
+        </div>
+        <div id="dinner" class="recepe">
+          <h1>Middag</h1>
+          <div class="ingredients"></div>
+          <div class="buttons">
+            <paper-button raised>Remake</paper-button>
+            <paper-button raised>Use it</paper-button>
+          </div>
+          <paper-shadow z="1"></paper-shadow>
+        </div>
+        <div id="afternoon" class="recepe">
+          <h1>Kveldsmat</h1>
+          <div class="ingredients"></div>
+          <div class="buttons">
+            <paper-button raised>Remake</paper-button>
+            <paper-button raised>Use it</paper-button>
+          </div>
+          <paper-shadow z="1"></paper-shadow>
+        </div>
       </div>
       <div id="store">
       </div>
