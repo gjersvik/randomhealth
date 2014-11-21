@@ -7,13 +7,30 @@ class Recipe{
   Recipe(this._store){
     _storage = window.localStorage;
     
-    querySelector('#breakfast .ingredients').innerHtml = toHtml(getBreakfast());
-    querySelector('#dinner .ingredients').innerHtml = toHtml(getDinner());
-    querySelector('#afternoon .ingredients').innerHtml = toHtml(getAfternoon());
+    var breakfastElem = querySelector('#breakfast');
+    breakfastElem.querySelector('.ingredients').children = toHtml(getBreakfast());
+    breakfastElem.querySelector('.remake').onClick.listen((_) =>
+        breakfastElem.querySelector('.ingredients').children = toHtml(newBreakfast()));
+    
+    var dinnerElem = querySelector('#dinner');
+    dinnerElem.querySelector('.ingredients').children = toHtml(getDinner());
+    dinnerElem.querySelector('.remake').onClick.listen((_) =>
+        dinnerElem.querySelector('.ingredients').children = toHtml(newDinner()));
+    
+    var afternoonElem = querySelector('#afternoon');
+    afternoonElem.querySelector('.ingredients').children = toHtml(getAfternoon());
+    afternoonElem.querySelector('.remake').onClick.listen((_) =>
+        afternoonElem.querySelector('.ingredients').children = toHtml(newAfternoon()));
   }
   
-  String toHtml(List<Ingredient> ingedience){
-    return ingedience.map((i) => '<div class="${i.type}">${i.name} 1 av ${i.inStore}</div>').join('');
+  List<Element> toHtml(List<Ingredient> ingedience){
+    return ingedience.map((i){
+      var div = new Element.div();
+      div.className = i.type;
+      div.text = '${i.name} 1 av ${i.inStore}';
+      i.update.listen((_) => div.text = '${i.name} 1 av ${i.inStore}');
+      return div;
+    }).toList();
   }
   
   List<Ingredient> getBreakfast(){
