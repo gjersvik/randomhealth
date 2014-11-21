@@ -2,8 +2,11 @@ part of randomhealth;
 
 class Recipe{
   Store _store;
+  Storage _storage;
   
   Recipe(this._store){
+    _storage = window.localStorage;
+    
     querySelector('#breakfast .ingredients').innerHtml = toHtml(getBreakfast());
     querySelector('#dinner .ingredients').innerHtml = toHtml(getDinner());
     querySelector('#afternoon .ingredients').innerHtml = toHtml(getAfternoon());
@@ -14,18 +17,66 @@ class Recipe{
   }
   
   List<Ingredient> getBreakfast(){
-    var list = _store.catergory['veg'].pick(2);
-    list.addAll(_store.catergory['gravy'].pick(1));
-    return list;
+    if(_hasResepe('breakfast')){
+      return _deserialize(_storage['breakfast']);
+    }
+    return newBreakfast();
+  }
+  
+  List<Ingredient> newBreakfast(){
+    var resepe = _store.catergory['veg'].pick(2);
+    resepe.addAll(_store.catergory['gravy'].pick(1));
+    _storage['breakfast'] = _serialize(resepe);
+    return resepe;
   }
   
   List<Ingredient> getDinner(){
-    var list = _store.catergory['meat'].pick(1);
-    list.addAll(_store.catergory['veg'].pick(1));
-    return list;
+    if(_hasResepe('dinner')){
+      return _deserialize(_storage['dinner']);
+    }
+    return newDinner();
+  }
+  
+  List<Ingredient> newDinner(){
+    var resepe = _store.catergory['meat'].pick(1);
+    resepe.addAll(_store.catergory['veg'].pick(1));
+    _storage['dinner'] = _serialize(resepe);
+    return resepe;
   }
   
   List<Ingredient> getAfternoon(){
-    return _store.catergory['fruit'].pick(2);
+    if(_hasResepe('afternoon')){
+      return _deserialize(_storage['afternoon']);
+    }
+    return newAfternoon();
+  }
+  
+  List<Ingredient> newAfternoon(){
+    var resepe = _store.catergory['fruit'].pick(2);
+    _storage['afternoon'] = _serialize(resepe);
+    return resepe;
+  }
+  
+  String _today(){
+    var now = new DateTime.now();
+    return '${now.day}.${now.month}.${now.year}';
+  }
+  
+  bool _hasResepe(String resepeName){
+    return _storage.containsKey(resepeName)
+        && _storage[resepeName].startsWith(_today());
+  }
+  
+  String _serialize(List<Ingredient> resepe){
+    return '${_today()}|' + resepe.expand((ing) => [ing.type,ing.name]).join('|');
+  }
+  
+  List<Ingredient> _deserialize(String resepeSerialized){
+    var tokens = resepeSerialized.split('|');
+    var resepe = [];
+    for(var i = 1; i < tokens.length; i += 2){
+      resepe.add(_store.catergory[tokens[i]].ingredient[tokens[i+1]]);
+    }
+    return resepe;
   }
 }
