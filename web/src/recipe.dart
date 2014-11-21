@@ -11,16 +11,22 @@ class Recipe{
     breakfastElem.querySelector('.ingredients').children = toHtml(getBreakfast());
     breakfastElem.querySelector('.remake').onClick.listen((_) =>
         breakfastElem.querySelector('.ingredients').children = toHtml(newBreakfast()));
+    breakfastElem.querySelector('.use').onClick.listen((_) =>
+        getBreakfast().forEach((i) => i.dec()));
     
     var dinnerElem = querySelector('#dinner');
     dinnerElem.querySelector('.ingredients').children = toHtml(getDinner());
     dinnerElem.querySelector('.remake').onClick.listen((_) =>
         dinnerElem.querySelector('.ingredients').children = toHtml(newDinner()));
+    dinnerElem.querySelector('.use').onClick.listen((_) =>
+        getDinner().forEach((i) => i.dec()));
     
     var afternoonElem = querySelector('#afternoon');
     afternoonElem.querySelector('.ingredients').children = toHtml(getAfternoon());
     afternoonElem.querySelector('.remake').onClick.listen((_) =>
         afternoonElem.querySelector('.ingredients').children = toHtml(newAfternoon()));
+    afternoonElem.querySelector('.use').onClick.listen((_) =>
+        getAfternoon().forEach((i) => i.dec()));
   }
   
   List<Element> toHtml(List<Ingredient> ingedience){
