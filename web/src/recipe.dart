@@ -97,7 +97,7 @@ class Recipe{
   List<Ingredient> _deserialize(String resepeSerialized){
     var tokens = resepeSerialized.split('|');
     var resepe = [];
-    for(var i = 1; i < tokens.length; i += 2){
+    for(var i = 1; i < tokens.length - 1; i += 2){
       resepe.add(_store.catergory[tokens[i]].ingredient[tokens[i+1]]);
     }
     return resepe;
