@@ -8,7 +8,10 @@ import 'package:firebase/firebase.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:paper_elements/paper_tabs.dart';
+import 'package:paper_elements/paper_button.dart';
+import 'package:paper_elements/paper_shadow.dart';
 import 'package:core_elements/core_pages.dart';
+
 
 part 'src/category.dart';
 part 'src/ingredient.dart';
