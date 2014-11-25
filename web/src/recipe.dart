@@ -62,7 +62,6 @@ class Recipe{
   
   List<Ingredient> newDinner(){
     var resepe = _store.catergory['meat'].pick(1);
-    resepe.addAll(_store.catergory['veg'].pick(1));
     _storage['dinner'] = _serialize(resepe);
     return resepe;
   }
